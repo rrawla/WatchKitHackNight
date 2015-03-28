@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+NSString * const TimerDidChangeNotification = @"TimerDidChangeNotification";
+
 @interface AppDelegate ()
 
 @end
@@ -54,10 +56,53 @@
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
-    if(self.timerDate)
-        reply(@{ @"fireDate" : self.timerDate });
-    else
-        reply(@{});
+
+    NSNumber *timeInterval = userInfo[@"newTimeInterval"];
+    if(timeInterval) {
+        NSDate *d = [NSDate dateWithTimeIntervalSinceNow:timeInterval.floatValue];
+        self.timerDate = d;
+    }
+
+    if(userInfo[@"cancel"]) {
+        self.timerDate = nil;
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if(self.timerDate)
+            reply(@{ @"fireDate" : self.timerDate });
+        else
+            reply(@{});
+
+    });
+}
+
+- (NSDate *)timerDate {
+    UILocalNotification *note = [[[UIApplication sharedApplication] scheduledLocalNotifications] firstObject];
+    if(note) {
+        return note.fireDate;
+    }
+    return nil;
+}
+
+- (void)setTimerDate:(NSDate *)timerDate {
+    UIApplication *app = [UIApplication sharedApplication];
+    [app cancelAllLocalNotifications];
+
+    if(timerDate) {
+        UILocalNotification *note = [[UILocalNotification alloc] init];
+        note.fireDate = timerDate;
+        note.alertTitle = @"DING!";
+        note.alertBody = @"Your Timer Went Off";
+        note.alertAction = @"Ok!";
+        [app scheduleLocalNotification:note];
+
+        NSLog(@"Schedule note %@", timerDate);
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:TimerDidChangeNotification object:self];
+
+    });
 }
 
 @end

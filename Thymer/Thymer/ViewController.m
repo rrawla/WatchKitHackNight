@@ -21,12 +21,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newTimerSet:) name:TimerDidChangeNotification object:nil];
+
     self.datePicker.minimumDate = [NSDate date];
     AppDelegate *d = [[UIApplication sharedApplication] delegate];
-    if(d.timerDate) {
-        self.datePicker.date = d.timerDate;
-        self.selectedDate = d.timerDate;
-        [self countdownLabelFromSelectedDate];
+    NSDate *timerDate = d.timerDate;
+    if(timerDate) {
+        self.datePicker.date = timerDate;
     } else {
         self.datePicker.date = [NSDate dateWithTimeIntervalSinceNow:60 * 5];
     }
@@ -41,36 +43,33 @@
 - (IBAction)startButtonTapped:(id)sender {
     self.selectedDate = self.datePicker.date;
     [self scheduleNote];
-    [self countdownLabelFromSelectedDate];
 }
 
 - (void)scheduleNote {
-
     UIApplication *app = [UIApplication sharedApplication];
-    [app cancelAllLocalNotifications];
-
     AppDelegate *d = [app delegate];
     d.timerDate = self.selectedDate;
-
-    UILocalNotification *note = [[UILocalNotification alloc] init];
-    note.fireDate = self.selectedDate;
-    note.alertTitle = @"DING!";
-    note.alertBody = @"Your Timer Went Off";
-    note.alertAction = @"Ok!";
-    [[UIApplication sharedApplication] scheduleLocalNotification:note];
-
-    NSLog(@"Schedule note %@", self.selectedDate);
 }
 
-- (void)countdownLabelFromSelectedDate {
-    __block NSDateFormatter *fmt = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+- (void)setSelectedDate:(NSDate *)selectedDate {
+    _selectedDate = selectedDate;
+    static NSDateFormatter *fmt = nil;
+    if(!fmt) {
         fmt = [[NSDateFormatter alloc] init];
         fmt.dateStyle = NSDateFormatterShortStyle;
         fmt.timeStyle = NSDateFormatterShortStyle;
-    });
-    self.countdownLabel.text = [NSString stringWithFormat:@"%@", [fmt stringFromDate:self.selectedDate]];
-
+    };
+    if(_selectedDate) {
+        self.countdownLabel.text = [NSString stringWithFormat:@"New %@", [fmt stringFromDate:_selectedDate]];
+    } else {
+        self.countdownLabel.text = @"None Scheduled";
+    }
 }
+
+- (void)newTimerSet:(NSNotification*)note {
+    AppDelegate *d = [[UIApplication sharedApplication] delegate];
+    NSDate *timerDate = d.timerDate;
+    self.selectedDate = timerDate;
+}
+
 @end

@@ -10,6 +10,16 @@
 
 
 @interface InterfaceController()
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *scrollGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *targetLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceSlider *slider;
+
+
+@property (weak, nonatomic) IBOutlet WKInterfaceTimer *runningTimer;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *stopTimerButton;
+
+@property (nonatomic) CGFloat minutesRequested;
+@property (nonatomic) NSTimer *currentTimer;
 
 @end
 
@@ -18,12 +28,14 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-
+    [self refreshClock:nil];
     // Configure interface objects here.
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
+    self.minutesRequested = 2;
+    [self.slider setValue:2.0];
     [super willActivate];
 }
 
@@ -31,6 +43,97 @@
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
+
+- (IBAction)sliderValueChanged:(float)value {
+    NSString *txt = [NSString stringWithFormat:@"%.f minutes", value];
+    self.minutesRequested = value;
+    [self.targetLabel setText:txt];
+}
+
+- (void)showTimerDate:(NSDate *)date {
+    if(self.currentTimer) {
+        [self.currentTimer invalidate];
+        self.currentTimer = nil;
+    }
+    NSLog(@"Showing %@", date);
+    BOOL hide = (date == nil);
+    [self.runningTimer setDate:date];
+    [self.runningTimer setHidden:hide];
+    [self.stopTimerButton setHidden:hide];
+    if(date) {
+        NSTimeInterval interval = [date timeIntervalSinceNow];
+        self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
+
+    }
+    [self.runningTimer start];
+
+}
+
+- (IBAction)startThymerTapped {
+    [self startTimer];
+}
+
+- (IBAction)quickFiveTapped {
+    self.minutesRequested = 5.0;
+    [self startTimer];
+}
+
+- (IBAction)quickTenTapped {
+    self.minutesRequested = 10.0;
+    [self startTimer];
+}
+
+- (IBAction)quickHourTapped {
+    self.minutesRequested = 60.0;
+    [self startTimer];
+}
+
+- (IBAction)stopTimerTapped {
+    NSDictionary *dict = @{ @"cancel" : @"yes" };
+    [WKInterfaceController openParentApplication:dict
+                                           reply:^(NSDictionary *reply, NSError *error)
+     {
+         NSDate *d = reply[@"fireDate"];
+         [self showTimerDate:d];
+     }];
+
+}
+
+- (void)startTimer {
+    NSTimeInterval t = self.minutesRequested * 60;
+    NSDictionary *dict = @{ @"newTimeInterval" : @(t) };
+    [WKInterfaceController openParentApplication:dict
+                                           reply:^(NSDictionary *reply, NSError *error)
+     {
+         NSDate *d = reply[@"fireDate"];
+         [self showTimerDate:d];
+     }];
+}
+
+- (void)refreshClock:(NSTimer *)timer {
+    [WKInterfaceController openParentApplication:@{}
+                                           reply:^(NSDictionary *reply, NSError *error)
+     {
+         NSDate *d = reply[@"fireDate"];
+         [self showTimerDate:d];
+     }];
+}
+
+- (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)localNotification {
+    if([identifier isEqualToString:@"snoozeTwoMinutes"]){
+        self.minutesRequested = 2.0;
+        [self startTimer];
+    }
+}
+
+
+- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
+    if([identifier isEqualToString:@"snoozeTwoMinutes"]){
+        self.minutesRequested = 2.0;
+        [self startTimer];
+    }
+}
+
 
 @end
 
