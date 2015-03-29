@@ -21,6 +21,7 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     NSDictionary *dict = context;
+    [self setTitle:@" "];
     NSDate *d = dict[@"date"];
     [self showTimerDate:d];
     // Configure interface objects here.
@@ -67,7 +68,7 @@
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
         [self.runningTimer start];
     } else {
-        [self popController];
+        [self dismissController];
     }
 }
 

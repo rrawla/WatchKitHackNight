@@ -24,7 +24,6 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    [self refreshClock:nil];
     // Configure interface objects here.
 }
 
@@ -32,6 +31,7 @@
     // This method is called when watch view controller is about to be visible to user
     self.minutesRequested = 2;
     [self.slider setValue:2.0];
+    [self refreshClock:nil];
     [super willActivate];
 }
 
