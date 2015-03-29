@@ -32,13 +32,14 @@
 }
 
 - (void)didDeactivate {
-    [self cancelTimerWithCompletion:^{}];
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
 
 - (IBAction)stopTimerTapped {
-    [self popController];
+    [self cancelTimerWithCompletion:^{
+        [self dismissController];
+    }];
 }
 
 - (void)cancelTimerWithCompletion:(void(^)(void))completion {
@@ -66,7 +67,7 @@
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
         [self.runningTimer start];
     } else {
-
+        [self popController];
     }
 }
 

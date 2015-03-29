@@ -55,7 +55,8 @@
     if(date) {
         NSTimeInterval interval = [date timeIntervalSinceNow];
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
-        [self pushControllerWithName:@"currentTimer" context:@{ @"date":date }];
+        [self presentControllerWithName:@"currentTimer" context:@{ @"date":date }];
+//        [self pushControllerWithName:@"currentTimer" context:@{ @"date":date }];
     }
 }
 
