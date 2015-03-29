@@ -32,11 +32,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3N-3l-Jky">
-                                <rect key="frame" x="279" y="190" width="42" height="21"/>
+                                <rect key="frame" x="279" y="190" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJB-9N-7wO">
+                                <rect key="frame" x="329" y="185" width="33" height="30"/>
+                                <state key="normal" title="Stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelTimerTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y1E-Hd-guB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -44,8 +53,10 @@
                             <constraint firstAttribute="centerX" secondItem="DzE-7R-zqj" secondAttribute="centerX" id="HCp-uO-yBw"/>
                             <constraint firstAttribute="centerY" secondItem="DzE-7R-zqj" secondAttribute="centerY" id="HZO-Xf-k6X"/>
                             <constraint firstAttribute="centerX" secondItem="Y3N-3l-Jky" secondAttribute="centerX" id="Nw4-gf-iTR"/>
+                            <constraint firstItem="qJB-9N-7wO" firstAttribute="leading" secondItem="Y3N-3l-Jky" secondAttribute="trailing" constant="8" id="WcQ-E1-xWH"/>
                             <constraint firstItem="DzE-7R-zqj" firstAttribute="top" secondItem="Y3N-3l-Jky" secondAttribute="bottom" constant="8" id="iUf-rN-xzl"/>
                             <constraint firstAttribute="centerX" secondItem="bnD-mc-fqg" secondAttribute="centerX" id="vce-Kw-Z1z"/>
+                            <constraint firstItem="Y3N-3l-Jky" firstAttribute="centerY" secondItem="qJB-9N-7wO" secondAttribute="centerY" constant="0.25" id="zuA-U9-izW"/>
                         </constraints>
                     </view>
                     <connections>

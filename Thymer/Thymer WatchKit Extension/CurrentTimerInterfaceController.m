@@ -12,7 +12,7 @@
 @interface CurrentTimerInterfaceController()
 @property (nonatomic) NSTimer *currentTimer;
 @property (weak, nonatomic) IBOutlet WKInterfaceTimer *runningTimer;
-
+@property (nonatomic) NSDate *currentTimerDate;
 @end
 
 
@@ -29,10 +29,13 @@
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
+    self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshClock:) userInfo:nil repeats:YES];
     [super willActivate];
 }
 
 - (void)didDeactivate {
+    [self.currentTimer invalidate];
+    self.currentTimerDate = nil;
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
@@ -57,15 +60,12 @@
 }
 
 - (void)showTimerDate:(NSDate *)date {
-    if(self.currentTimer) {
-        [self.currentTimer invalidate];
-        self.currentTimer = nil;
-    }
+    if([date isEqual:self.currentTimerDate] || self.currentTimerDate == date)
+        return;
     NSLog(@"Showing %@", date);
-    [self.runningTimer setDate:date];
+    self.currentTimerDate = date;
     if(date) {
-        NSTimeInterval interval = [date timeIntervalSinceNow];
-        self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
+        [self.runningTimer setDate:date];
         [self.runningTimer start];
     } else {
         [self dismissController];

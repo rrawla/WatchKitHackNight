@@ -76,4 +76,8 @@
     [super presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
+- (IBAction)cancelTimerTapped:(id)sender {
+    AppDelegate *d = [[UIApplication sharedApplication] delegate];
+    d.timerDate = nil;
+}
 @end

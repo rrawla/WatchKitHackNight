@@ -16,6 +16,9 @@
 
 @property (nonatomic) CGFloat minutesRequested;
 @property (nonatomic) NSTimer *currentTimer;
+@property (nonatomic) NSDate *currentTimerDate;
+
+@property (nonatomic) NSTimer *checkTimer;
 
 @end
 
@@ -32,10 +35,13 @@
     self.minutesRequested = 2;
     [self.slider setValue:2.0];
     [self refreshClock:nil];
+    self.checkTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshClock:) userInfo:nil repeats:YES];
     [super willActivate];
 }
 
 - (void)didDeactivate {
+    [self.checkTimer invalidate];
+    self.currentTimerDate = nil;
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
@@ -47,6 +53,9 @@
 }
 
 - (void)showTimerDate:(NSDate *)date {
+    if([date isEqual:self.currentTimerDate] || self.currentTimerDate == date)
+        return;
+
     if(self.currentTimer) {
         [self.currentTimer invalidate];
         self.currentTimer = nil;
@@ -55,8 +64,8 @@
     if(date) {
         NSTimeInterval interval = [date timeIntervalSinceNow];
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
-        [self presentControllerWithName:@"currentTimer" context:@{ @"date":date }];
-//        [self pushControllerWithName:@"currentTimer" context:@{ @"date":date }];
+        self.currentTimerDate = date;
+        [self presentControllerWithName:@"currentTimer" context:@{ @"date": date }];
     }
 }
 
