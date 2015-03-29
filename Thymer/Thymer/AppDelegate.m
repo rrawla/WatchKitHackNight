@@ -105,4 +105,12 @@ NSString * const TimerDidChangeNotification = @"TimerDidChangeNotification";
     });
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)notification completionHandler:(void (^)())completionHandler {
+
+}
+
 @end
