@@ -71,4 +71,9 @@
     self.selectedDate = timerDate;
 }
 
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    self.selectedDate = nil;
+    [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
 @end

@@ -106,6 +106,12 @@ NSString * const TimerDidChangeNotification = @"TimerDidChangeNotification";
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    UIApplication *app = [UIApplication sharedApplication];
+    if(app.applicationState == UIApplicationStateActive) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ding!" message:@"Timer went off!" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Thanks!" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}]];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    }
 
 }
 
