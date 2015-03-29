@@ -56,7 +56,7 @@
     if(!fmt) {
         fmt = [[NSDateFormatter alloc] init];
         fmt.dateStyle = NSDateFormatterShortStyle;
-        fmt.timeStyle = NSDateFormatterShortStyle;
+        fmt.timeStyle = NSDateFormatterMediumStyle;
     };
     if(_selectedDate) {
         self.countdownLabel.text = [NSString stringWithFormat:@"%@", [fmt stringFromDate:_selectedDate]];
