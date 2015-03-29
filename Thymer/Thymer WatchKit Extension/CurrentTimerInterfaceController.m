@@ -32,6 +32,10 @@
 }
 
 - (void)didDeactivate {
+    if(self.currentTimer) {
+        [self.currentTimer invalidate];
+        [self stopTimerTapped];
+    }
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
