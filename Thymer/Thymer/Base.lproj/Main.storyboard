@@ -63,6 +63,7 @@
                         <outlet property="countdownLabel" destination="Y3N-3l-Jky" id="WaN-TT-brS"/>
                         <outlet property="datePicker" destination="DzE-7R-zqj" id="W8I-38-3mY"/>
                         <outlet property="startButton" destination="bnD-mc-fqg" id="yft-S9-g6M"/>
+                        <outlet property="stopButton" destination="qJB-9N-7wO" id="Dgl-nZ-dsq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

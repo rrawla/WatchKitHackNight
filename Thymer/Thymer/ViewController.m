@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
+@property (weak, nonatomic) IBOutlet UIButton *stopButton;
 
 @end
 
@@ -59,8 +60,10 @@
         fmt.timeStyle = NSDateFormatterMediumStyle;
     };
     if(_selectedDate) {
+        self.stopButton.hidden = NO;
         self.countdownLabel.text = [NSString stringWithFormat:@"%@", [fmt stringFromDate:_selectedDate]];
     } else {
+        self.stopButton.hidden = YES;
         self.countdownLabel.text = @"None Scheduled";
     }
 }
