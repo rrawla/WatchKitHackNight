@@ -27,11 +27,10 @@
     self.datePicker.minimumDate = [NSDate date];
     AppDelegate *d = [[UIApplication sharedApplication] delegate];
     NSDate *timerDate = d.timerDate;
-    if(timerDate) {
-        self.datePicker.date = timerDate;
-    } else {
-        self.datePicker.date = [NSDate dateWithTimeIntervalSinceNow:60 * 5];
-    }
+
+    self.selectedDate = timerDate;
+    self.datePicker.date = timerDate?:[NSDate dateWithTimeIntervalSinceNow:60 * 5];
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -60,7 +59,7 @@
         fmt.timeStyle = NSDateFormatterShortStyle;
     };
     if(_selectedDate) {
-        self.countdownLabel.text = [NSString stringWithFormat:@"New %@", [fmt stringFromDate:_selectedDate]];
+        self.countdownLabel.text = [NSString stringWithFormat:@"%@", [fmt stringFromDate:_selectedDate]];
     } else {
         self.countdownLabel.text = @"None Scheduled";
     }
