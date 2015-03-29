@@ -32,22 +32,27 @@
 }
 
 - (void)didDeactivate {
-    if(self.currentTimer) {
-        [self.currentTimer invalidate];
-        [self stopTimerTapped];
-    }
+    [self cancelTimerWithCompletion:^{}];
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
+
 - (IBAction)stopTimerTapped {
-    NSDictionary *dict = @{ @"cancel" : @"yes" };
-    [WKInterfaceController openParentApplication:dict
-                                           reply:^(NSDictionary *reply, NSError *error)
-     {
-         [self popController];
-     }];
+    [self popController];
 }
 
+- (void)cancelTimerWithCompletion:(void(^)(void))completion {
+    if(self.currentTimer) {
+        [self.currentTimer invalidate];
+        self.currentTimer = nil;
+        NSDictionary *dict = @{ @"cancel" : @"yes" };
+        [WKInterfaceController openParentApplication:dict
+                                               reply:^(NSDictionary *reply, NSError *error)
+         {
+             completion();
+         }];
+    }
+}
 
 - (void)showTimerDate:(NSDate *)date {
     if(self.currentTimer) {
@@ -60,6 +65,8 @@
         NSTimeInterval interval = [date timeIntervalSinceNow];
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
         [self.runningTimer start];
+    } else {
+
     }
 }
 
