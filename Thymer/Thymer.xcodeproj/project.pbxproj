@@ -22,6 +22,7 @@
 		0E35D1371AC33DA300BB4282 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E35D1351AC33DA300BB4282 /* Interface.storyboard */; };
 		0E35D1391AC33DA300BB4282 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E35D1381AC33DA300BB4282 /* Images.xcassets */; };
 		0E35D13C1AC33DA300BB4282 /* Thymer WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E35D11C1AC33DA300BB4282 /* Thymer WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0EEC6C241AC79378007452C2 /* CurrentTimerInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC6C231AC79378007452C2 /* CurrentTimerInterfaceController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		0E35D1341AC33DA300BB4282 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E35D1361AC33DA300BB4282 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		0E35D1381AC33DA300BB4282 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0EEC6C221AC79378007452C2 /* CurrentTimerInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentTimerInterfaceController.h; sourceTree = "<group>"; };
+		0EEC6C231AC79378007452C2 /* CurrentTimerInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentTimerInterfaceController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +194,8 @@
 				0E35D1281AC33DA300BB4282 /* GlanceController.m */,
 				0E35D12A1AC33DA300BB4282 /* Images.xcassets */,
 				0E35D11E1AC33DA300BB4282 /* Supporting Files */,
+				0EEC6C221AC79378007452C2 /* CurrentTimerInterfaceController.h */,
+				0EEC6C231AC79378007452C2 /* CurrentTimerInterfaceController.m */,
 			);
 			path = "Thymer WatchKit Extension";
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				0E35D1261AC33DA300BB4282 /* NotificationController.m in Sources */,
 				0E35D1231AC33DA300BB4282 /* InterfaceController.m in Sources */,
 				0E35D1291AC33DA300BB4282 /* GlanceController.m in Sources */,
+				0EEC6C241AC79378007452C2 /* CurrentTimerInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +666,7 @@
 				0E35D0EB1AC33AED00BB4282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E35D0EC1AC33AED00BB4282 /* Build configuration list for PBXNativeTarget "ThymerTests" */ = {
 			isa = XCConfigurationList;
@@ -668,6 +675,7 @@
 				0E35D0EE1AC33AED00BB4282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E35D13D1AC33DA300BB4282 /* Build configuration list for PBXNativeTarget "Thymer WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -676,6 +684,7 @@
 				0E35D13F1AC33DA300BB4282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E35D1401AC33DA300BB4282 /* Build configuration list for PBXNativeTarget "Thymer WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -684,6 +693,7 @@
 				0E35D1421AC33DA300BB4282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

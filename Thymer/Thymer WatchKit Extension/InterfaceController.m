@@ -14,10 +14,6 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *targetLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceSlider *slider;
 
-
-@property (weak, nonatomic) IBOutlet WKInterfaceTimer *runningTimer;
-@property (weak, nonatomic) IBOutlet WKInterfaceButton *stopTimerButton;
-
 @property (nonatomic) CGFloat minutesRequested;
 @property (nonatomic) NSTimer *currentTimer;
 
@@ -56,17 +52,11 @@
         self.currentTimer = nil;
     }
     NSLog(@"Showing %@", date);
-    BOOL hide = (date == nil);
-    [self.runningTimer setDate:date];
-    [self.runningTimer setHidden:hide];
-    [self.stopTimerButton setHidden:hide];
     if(date) {
         NSTimeInterval interval = [date timeIntervalSinceNow];
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(refreshClock:) userInfo:nil repeats:NO];
-
+        [self pushControllerWithName:@"currentTimer" context:@{ @"date":date }];
     }
-    [self.runningTimer start];
-
 }
 
 - (IBAction)startThymerTapped {
@@ -89,13 +79,6 @@
 }
 
 - (IBAction)stopTimerTapped {
-    NSDictionary *dict = @{ @"cancel" : @"yes" };
-    [WKInterfaceController openParentApplication:dict
-                                           reply:^(NSDictionary *reply, NSError *error)
-     {
-         NSDate *d = reply[@"fireDate"];
-         [self showTimerDate:d];
-     }];
 
 }
 

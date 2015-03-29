@@ -12,13 +12,6 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="q0C-b4-S0v">
                             <items>
-                                <timer width="1" alignment="left" hidden="YES" textAlignment="center" id="ySc-5z-t19"/>
-                                <button width="1" alignment="left" hidden="YES" title="STOP TIMER" id="w4l-7d-h9a">
-                                    <color key="backgroundColor" red="0.82064312699999997" green="0.0" blue="0.034401953220000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <connections>
-                                        <action selector="stopTimerTapped" destination="AgC-eL-Hgc" id="MI3-kJ-WyR"/>
-                                    </connections>
-                                </button>
                                 <label width="1" alignment="left" text="Set a thymer for:" textAlignment="center" id="h8e-Y7-vey"/>
                                 <label width="1" alignment="left" text="2 minutes" textAlignment="center" id="c8p-5U-K4Q"/>
                                 <slider width="1" alignment="left" value="2" minimum="2" maximum="30" steps="29" id="cR8-xE-iRG">
@@ -54,15 +47,34 @@
                         </group>
                     </items>
                     <connections>
-                        <outlet property="runningTimer" destination="ySc-5z-t19" id="PTe-s6-111"/>
                         <outlet property="scrollGroup" destination="q0C-b4-S0v" id="gdl-6m-n1b"/>
                         <outlet property="slider" destination="cR8-xE-iRG" id="WEG-1P-0lS"/>
-                        <outlet property="stopTimerButton" destination="w4l-7d-h9a" id="N2H-iJ-dSU"/>
                         <outlet property="targetLabel" destination="c8p-5U-K4Q" id="PRE-Zk-brp"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="235" y="358.5"/>
+        </scene>
+        <!--currentTimer-->
+        <scene sceneID="8Fy-Fe-8jK">
+            <objects>
+                <controller identifier="currentTimer" id="GdV-Au-lDO" customClass="CurrentTimerInterfaceController">
+                    <items>
+                        <label width="1" alignment="left" text="Thyme Remaining" textAlignment="center" id="Mfe-TS-F6x"/>
+                        <timer width="1" alignment="left" textAlignment="center" id="ySc-5z-t19"/>
+                        <button width="1" alignment="left" title="STOP THYMER" id="w4l-7d-h9a">
+                            <color key="backgroundColor" red="0.82064312699999997" green="0.0" blue="0.034401953220000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="stopTimerTapped" destination="GdV-Au-lDO" id="6aG-V0-qft"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="runningTimer" destination="ySc-5z-t19" id="mrp-h7-oaR"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="530" y="334"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
