@@ -71,11 +71,12 @@
                     <items>
                         <group alignment="left" layout="vertical" id="t8f-Gd-c4y">
                             <items>
-                                <label width="1" alignment="left" text="THYMER!!" textAlignment="center" id="Mnd-OT-6GF">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                <label width="1" alignment="left" text="Thymer" textAlignment="center" id="Mnd-OT-6GF">
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="font" type="boldSystem" pointSize="22"/>
                                 </label>
                             </items>
-                            <color key="backgroundColor" red="0.099496081471443176" green="0.23356485366821289" blue="0.39913448691368103" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.99843794109999995" green="0.56526720519999996" blue="0.23660796880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </group>
                         <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
